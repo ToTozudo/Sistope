@@ -65,7 +65,8 @@ int main(int argc, char *argv[])
             }
             printf("\n");
         }
+        free(grafico);
     }
-    
+    liberar(registroDatos, datos);
     return 0;
 }

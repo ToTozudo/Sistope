@@ -135,3 +135,16 @@ int* normalizacion(celdas* resultadoCeldas, celdas mostEnergy, int N, int MAX_CH
     }
     return normalizado;
 }
+
+/**/
+void liberar(celdas* datosRegistrados, int** particulas){
+    int cParticulas = particulas[0][0];
+    free(datosRegistrados);
+
+    for (int i = 1; i <= cParticulas; i++)
+    {
+        free(particulas[i]);
+    }
+    free(particulas);
+    
+}
