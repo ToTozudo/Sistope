@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
 
     // Verificación de los parámetros de entrada
     if (N <= 0 || inputFilename == NULL || outputFilename == NULL) {
-        fprintf(stderr, "Faltan opciones requeridas o el número de celdas es inválido.\n");
+        fprintf(stderr, "Faltan opciones requeridas o el número de celdas es inválido, asegurese de que sea positivo.\n");
         return 1;
     }
 

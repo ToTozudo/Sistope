@@ -13,7 +13,7 @@ Lógica: Se busca el archivo con el nombre proporcionado, se analiza el primer n
 int** lectura_particulas(char* filename){
     FILE* file = fopen(filename,"r");
     if (file == NULL){
-        fprintf(stderr, "Error al abrir el archivo");
+        fprintf(stderr, "Error al abrir el archivo. Verifique que se encuentra en carpeta, o tenga el mismo nombre proporcionado.");
         fclose(file);
         return NULL;
     }
@@ -90,8 +90,8 @@ Entrada: Índices de dos celdas, número de celdas, y energía EJ
 Salida: Valor de energía calculado
 Lógica: Calcula la energía entre dos celdas según la fórmula proporcionada y la devuelve como resultado.
 */
-double energia_j_i(int i, int j, int n, int eJ){
-    double resultado = (pow(10, 3) * eJ) / (n * (sqrt(abs(j - i) + 1)));
+float energia_j_i(int i, int j, int n, int eJ){
+    float resultado = (pow(10, 3) * eJ) / (n * (sqrt(abs(j - i) + 1)));
     // printf("\t%d :: %.4lf\n", i, resultado);
     return resultado;
 }
@@ -103,16 +103,17 @@ Salida: Arreglo de celdas con energías calculadas
 Lógica: Calcula la energía de todas las celdas según la posición de las partículas y las energías de las partículas.
 */
 celdas* energia_celdas(int** datos, int cantidadCeldas){
-    double MIN_ENERGY = pow(10, -3) / cantidadCeldas;
+    float MIN_ENERGY = pow(10, -3) / cantidadCeldas;
     celdas* celdasResultantes = (celdas*) malloc (sizeof(celdas) * cantidadCeldas);
+
     for (int i = 0; i < cantidadCeldas; i++)
     {
         celdasResultantes[i].celda = i;
         celdasResultantes[i].energia = 0;
         int cantidadParticulas = datos[0][0];
-        for (int j = 1; j < cantidadParticulas; j++)
+        for (int j = 1; j <= cantidadParticulas; j++)
         {
-            double energiaParcial = energia_j_i(i, datos[j][0], cantidadCeldas, datos[j][1]);
+            float energiaParcial = energia_j_i(i, datos[j][0], cantidadCeldas, datos[j][1]);
             if (energiaParcial >= MIN_ENERGY){
                 celdasResultantes[i].energia += energiaParcial;
             }
