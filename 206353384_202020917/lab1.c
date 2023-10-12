@@ -1,11 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <math.h>
+#include <getopt.h>
 #include "funciones.h"
 
-int MAX_CHAR= 25;
+int MAX_CHAR= 35;
 
-int main(int argc, char const *argv[])
+int main(int argc, char *argv[])
 {
     /*Ejemplo ejecucion: 
     ./lab1 -N 5 -i input.txt -o output.txt -D
@@ -56,10 +58,10 @@ int main(int argc, char const *argv[])
         int* grafico = normalizacion(registroDatos, celdaEnergizada, N, MAX_CHAR);
         for (int i = 0; i < N; i++)
         {
-            printf("%d\t %.4lf\t |", i, registroDatos[i].energia);
+            printf("%d\t%.4lf  |", i, registroDatos[i].energia);
             for (int j = 0; j < grafico[i]; j++)
             {
-                printf("♦");
+                printf("o");
             }
             printf("\n");
         }

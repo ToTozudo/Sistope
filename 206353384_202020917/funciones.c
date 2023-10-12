@@ -1,5 +1,6 @@
 #include "./funciones.h"
-
+#include <math.h>
+#include <stdlib.h>
 
 
 /*
@@ -84,7 +85,8 @@ void archivo_salida(celdas* resultadosCeldas, celdas mostEnergy, int cantidadCel
 
 /**/
 double energia_j_i(int i, int j, int n, int eJ){
-    double resultado =  (pow(10,3)+eJ)/(n*(sqrt(abs(j-i)+1)));
+    double resultado =  (pow(10,3)*eJ)/(n*(sqrt(abs(j-i)+1)));
+    //printf("\t%d :: %.4lf\n", i, resultado);
     return resultado;
 }
 
@@ -129,7 +131,7 @@ celdas mayor_energia(celdas* celdasRegistradas, int cantidadCeldas){
 int* normalizacion(celdas* resultadoCeldas, celdas mostEnergy, int N, int MAX_CHAR){
     int* normalizado= (int*) malloc(N*sizeof(int));
     for (int i = 0; i < N; i++){
-        normalizado[i] = round(resultadoCeldas[i] / (mostEnergy.energia * MAX_CHAR));
+        normalizado[i] = round((resultadoCeldas[i].energia / mostEnergy.energia) * MAX_CHAR);
     }
     return normalizado;
 }
