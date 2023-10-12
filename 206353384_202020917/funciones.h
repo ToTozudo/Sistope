@@ -13,3 +13,4 @@ int** lectura_particulas(char* filename);
 void archivo_salida(celdas* resultadosCeldas, celdas mostEnergy, int cantidadCeldas, char* filename);
 celdas* energia_celdas(int** datos, int cantidadCeldas);
 celdas mayor_energia(celdas* celdasRegistradas, int cantidadCeldas);
+int* normalizacion(celdas* resultadoCeldas, celdas mostEnergy, int N, int MAX_CHAR);

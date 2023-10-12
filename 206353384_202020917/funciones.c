@@ -123,3 +123,13 @@ celdas mayor_energia(celdas* celdasRegistradas, int cantidadCeldas){
     }
     return mayorEnergia;
 }
+
+
+/**/
+int* normalizacion(celdas* resultadoCeldas, celdas mostEnergy, int N, int MAX_CHAR){
+    int* normalizado= (int*) malloc(N*sizeof(int));
+    for (int i = 0; i < N; i++){
+        normalizado[i] = round(resultadoCeldas[i] / (mostEnergy.energia * MAX_CHAR));
+    }
+    return normalizado;
+}

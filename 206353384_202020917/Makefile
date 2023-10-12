@@ -1,7 +1,7 @@
 FLAGS = -Wall -lm
 
-main: main.c funciones.o
-		gcc $(FLAGS) -o main main.c funciones.o
+main: lab1.c funciones.o
+		gcc $(FLAGS) -o main lab1.c funciones.o
 
 funciones.o: funciones.c
 		gcc -c $(FLAGS) funciones.c

@@ -3,6 +3,8 @@
 #include <unistd.h>
 #include "funciones.h"
 
+int MAX_CHAR= 25;
+
 int main(int argc, char const *argv[])
 {
     /*Ejemplo ejecucion: 
@@ -49,5 +51,19 @@ int main(int argc, char const *argv[])
     celdas* registroDatos = energia_celdas(datos, N);
     celdas celdaEnergizada = mayor_energia(registroDatos, N);
     archivo_salida(registroDatos, celdaEnergizada, N, outputFilename);
+    if (D_flag)
+    {
+        int* grafico = normalizacion(registroDatos, celdaEnergizada, N, MAX_CHAR);
+        for (int i = 0; i < N; i++)
+        {
+            printf("%d\t %.4lf\t |", i, registroDatos[i].energia);
+            for (int j = 0; j < grafico[i]; j++)
+            {
+                printf("♦");
+            }
+            printf("\n");
+        }
+    }
+    
     return 0;
 }
