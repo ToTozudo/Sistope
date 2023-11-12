@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <math.h>
-#include <getopt.h>
 #include "funciones.h"
 
 int MAX_CHAR = 35;  // Valor máximo de caracteres en el gráfico
