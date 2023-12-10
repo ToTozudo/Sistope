@@ -32,7 +32,6 @@ void* particulas(void* arg) {
         for (int i = 0; i < chunk; i++) {
 
             if (feof(inputFile)) {
-                pthread_mutex_unlock(&mutex);
                 break;
             }
             fscanf(inputFile, "%d %d\n", &particula, &energia);
