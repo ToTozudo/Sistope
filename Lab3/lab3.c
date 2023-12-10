@@ -75,7 +75,7 @@ int main(int argc, char *argv[])
 	pthread_mutex_init(&mutex, NULL); // Se inicializa el mutex
 
     for (int tid = 0; tid < nHebras; tid++){ // Se crean las hebras
-		pthread_create(&arrayHebras[tid], NULL, particulas, (void *)tid);
+		pthread_create(&arrayHebras[tid], NULL, particulas, (void*) tid);
         lHebras = (int*) malloc(nHebras * sizeof(int));
         lHebras[tid] = 0; //cuantas lineas a leido
 	}
