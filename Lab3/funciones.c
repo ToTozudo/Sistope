@@ -86,12 +86,10 @@ void energia_celdas(int particula, float energia){
     for (int i = 0; i < cCeldas; i++)
     {
         celdasEnergizadas[i].celda = i;
-        if (celdasEnergizadas[i].energia == NULL){
-            celdasEnergizadas[i].energia = 0;
-        } 
-        float energiaParcial = energia_j_i(i, particula, cantidadCeldas, energia);
+        
+        float energiaParcial = energia_j_i(i, particula, cCeldas, energia);
             if (energiaParcial >= MIN_ENERGY){
-                celdasResultantes[i].energia += energiaParcial;
+                celdas celdasEnergizadas[i].energia += energiaParcial;
             }
         
     }
