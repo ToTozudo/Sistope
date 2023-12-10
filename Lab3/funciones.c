@@ -16,8 +16,8 @@ Lógica: Se busca el archivo con el nombre proporcionado, se analiza el primer n
         que representa la cantidad de partículas a leer. Luego, se inicializa una matriz con el 
         número recién leído, se reserva memoria para almacenar la posición de la partícula y su energía.
 */
-void* particulas( void * hebra){
-    int tid = (int)hebra;
+void* particulas( void * arg){
+    int tid = *((int*)hebra);
     while(1){
         pthread_mutex_lock(&mutex);
         if (feof(inputFile)) {  // Verificar si ya se llegó al final del archivo
