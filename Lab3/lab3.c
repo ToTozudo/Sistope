@@ -111,7 +111,8 @@ int main(int argc, char *argv[])
     }
 
     // Liberar memoria asignada dinámicamente
-    liberar();
+    free(lHebras);
+    free(celdasEnergizadas);
     pthread_mutex_destroy(&mutex);
 
     return 0;

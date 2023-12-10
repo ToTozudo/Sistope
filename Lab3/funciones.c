@@ -25,21 +25,23 @@ void* particulas(void* arg) {
             pthread_mutex_unlock(&mutex);
             break;
         }
-        pthread_mutex_unlock(&mutex);
+        
 
         int particula;
         int energia;
         for (int i = 0; i < chunk; i++) {
-            pthread_mutex_lock(&mutex);
+
             if (feof(inputFile)) {
                 pthread_mutex_unlock(&mutex);
                 break;
             }
-            fscanf(inputFile, "%d %d", &particula, &energia);
+            fscanf(inputFile, "%d %d\n", &particula, &energia);
             lHebras[tid] += 1;
-            pthread_mutex_unlock(&mutex);
             energia_celdas(particula, energia);
+            printf("%d\n", particula);
         }
+        printf("termino %d\n", tid);
+        pthread_mutex_unlock(&mutex);
     }
 
     return NULL;
