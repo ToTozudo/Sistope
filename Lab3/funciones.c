@@ -32,7 +32,7 @@ void* particulas( void * arg){
                 break;
             }
             fscanf(inputFile, "%d %d", &particula, &energia);
-            &lHebras[tid] = &lHebras + 1;
+            lHebras[tid] += 1;
             energia_celdas(particula,energia);
         }
     }
@@ -81,7 +81,7 @@ Lógica: Calcula la energía de todas las celdas según la posición de las part
 */
 void energia_celdas(int particula, float energia){
     float MIN_ENERGY = pow(10, -3) / cCeldas;
-
+    
     for (int i = 0; i < cCeldas; i++)
     {
         celdasEnergizadas[i].celda = i;

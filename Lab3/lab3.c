@@ -73,12 +73,11 @@ int main(int argc, char *argv[])
 
     pthread_t arrayHebras[nHebras];  // Se reserva memoria para el arreglo de hebras
 	pthread_mutex_init(&mutex, NULL); // Se inicializa el mutex
-
+    lHebras = (int*) malloc(nHebras * sizeof(int));
     for (int tid = 0; tid < nHebras; tid++){ // Se crean las hebras
 		int * arg= malloc(sizeof(*arg));
         *arg=tid;
         pthread_create(&arrayHebras[tid], NULL, particulas, arg);
-        lHebras = (int*) malloc(nHebras * sizeof(int));
         lHebras[tid] = 0; //cuantas lineas a leido
 	}
 
