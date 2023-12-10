@@ -53,7 +53,6 @@ void archivo_salida(char* filename){
         fclose(file);
     }
     celdas mostEnergy= mayor_energia();
-    ();
     fprintf(file, "%d %.6lf\n", mostEnergy.celda, mostEnergy.energia);
     for (int i = 0; i < cCeldas; i++)
     {
@@ -89,7 +88,7 @@ void energia_celdas(int particula, float energia){
         
         float energiaParcial = energia_j_i(i, particula, cCeldas, energia);
             if (energiaParcial >= MIN_ENERGY){
-                celdas celdasEnergizadas[i].energia += energiaParcial;
+                celdasEnergizadas[i].energia += energiaParcial;
             }
         
     }
