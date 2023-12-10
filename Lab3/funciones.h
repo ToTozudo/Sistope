@@ -8,7 +8,7 @@ Definición de la estructura "celdas" que representa una celda con su número (c
 typedef struct celdas
 {
     int celda;
-    float energia = 0;
+    float energia;
 } celdas;
 
 /*
