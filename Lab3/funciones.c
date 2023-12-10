@@ -1,6 +1,7 @@
 #include "./funciones.h"
 #include <math.h>
 #include <stdlib.h>
+#include <pthread.h>
 
 extern FILE *inputFile;
 extern int chunk, nHebras, cParticulas, cCeldas;
@@ -19,18 +20,18 @@ void* particulas(void* hebra){
     int tid = (int)hebra;
     while(1){
         pthread_mutex_lock(&mutex);
-        if (feof(archivoEntrada)) {  // Verificar si ya se llegó al final del archivo
+        if (feof(inputFile)) {  // Verificar si ya se llegó al final del archivo
             pthread_mutex_unlock(&mutex);// Se sale de la sección crítica
             break;
         }
         int particula;
         float energia;
         for(int i = 0; i < chunk ; i++){
-            if (feof(archivoEntrada)) {  // Verificar si ya se llegó al final del archivo
+            if (feof(inputFile)) {  // Verificar si ya se llegó al final del archivo
                 pthread_mutex_unlock(&mutex);// Se sale de la sección crítica
                 break;
             }
-            fscanf(file, "%d %d", &particula, &energia);
+            fscanf(inputFile, "%d %d", &particula, &energia);
             lHebras[tid] += 1;
             energia_celdas(particula,energia);
         }
@@ -51,7 +52,7 @@ void archivo_salida(char* filename){
         fprintf(stderr, "No se pudo abrir el archivo.");
         fclose(file);
     }
-    mostEnergy= mayor_energia();
+    celdas mostEnergy= mayor_energia();
     ();
     fprintf(file, "%d %.6lf\n", mostEnergy.celda, mostEnergy.energia);
     for (int i = 0; i < cCeldas; i++)

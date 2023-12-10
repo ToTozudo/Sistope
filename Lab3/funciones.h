@@ -16,14 +16,14 @@ Declaración de la función "lectura_particulas" que lee datos de un archivo de 
 Entrada: Nombre del archivo de entrada (filename).
 Salida: Matriz dinámica de enteros que contiene información sobre partículas y su energía.
 */
-void *particulas(void *args);
+void *particulas(void *hebra);
 
 /*
 Declaración de la función "archivo_salida" que escribe resultados en un archivo de salida.
 Entrada: Arreglo de celdas de resultados, celda con mayor energía, cantidad de celdas, nombre del archivo de salida.
 Salida: Ninguna, los resultados se escriben en un archivo.
 */
-void archivo_salida(celdas* resultadosCeldas, celdas mostEnergy, int cantidadCeldas, char* filename);
+void archivo_salida(char* filename);
 
 /*
 Declaración de la función "energia_celdas" que calcula la energía de cada celda en función de los datos de las partículas.
@@ -37,18 +37,18 @@ Declaración de la función "mayor_energia" que encuentra la celda con la mayor 
 Entrada: Arreglo de celdas registradas, cantidad de celdas.
 Salida: Celda con la mayor energía.
 */
-celdas mayor_energia(celdas* celdasRegistradas, int cantidadCeldas);
+celdas mayor_energia();
 
 /*
 Declaración de la función "normalizacion" que normaliza valores de energía en función de una celda con mayor energía.
 Entrada: Arreglo de celdas con energías, celda con mayor energía, N (número máximo de caracteres), MAX_CHAR (máximo valor de caracteres).
 Salida: Arreglo de valores normalizados.
 */
-int* normalizacion(celdas* resultadoCeldas, celdas mostEnergy, int N, int MAX_CHAR);
+int* normalizacion(int MAX_CHAR);
 
 /*
 Declaración de la función "liberar" que libera la memoria asignada dinámicamente para celdas de datos registrados y la matriz de partículas.
 Entrada: Arreglo de celdas de datos registrados y matriz de partículas.
 Salida: Ninguna, libera la memoria.
 */
-void liberar(celdas* datosRegistrados, int** particulas);
+void liberar();
