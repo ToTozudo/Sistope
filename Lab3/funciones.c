@@ -37,9 +37,7 @@ void* particulas(void* arg) {
             fscanf(inputFile, "%d %d\n", &particula, &energia);
             lHebras[tid] += 1;
             energia_celdas(particula, energia);
-            printf("%d\n", particula);
         }
-        printf("termino %d\n", tid);
         pthread_mutex_unlock(&mutex);
     }
 
