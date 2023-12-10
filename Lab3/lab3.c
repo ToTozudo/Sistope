@@ -8,7 +8,7 @@
 //Declaración variables globales
 int MAX_CHAR = 35;  // Valor máximo de caracteres en el gráfico
 int chunk, nHebras, cParticulas, cCeldas;
-int* particulas, lHebras;
+int* lHebras;
 FILE *inputFile;
 pthread_mutex_t mutex;
 celdas* celdasEnergizadas;
@@ -72,7 +72,6 @@ int main(int argc, char *argv[])
     if (cParticulas < 0) {
         fprintf(stderr, "Error al leer el número de partículas. No puede haber una cantidad negativa.\n");
     }
-    particulasEmitidas = (int**) malloc((cParticulas) * sizeof(int*));
 
     pthread_t arrayHebras[nHebras];  // Se reserva memoria para el arreglo de hebras
 	pthread_mutex_init(&mutex, NULL); // Se inicializa el mutex
@@ -90,7 +89,7 @@ int main(int argc, char *argv[])
 	fclose(archivoEntrada);
 
     // Escribir los resultados en un archivo de salida
-    archivo_salida(registroDatos, celdaEnergizada, N, outputFilename);
+    archivo_salida(outputFilename);
 
     // Si la bandera D está habilitada, generar y mostrar una representación gráfica
     if (D_flag)
@@ -106,10 +105,14 @@ int main(int argc, char *argv[])
             printf("\n");
         }
         free(grafico);
+        printf("Cantidad de lineas leidas por hebra:\n");
+        for(int tid = 0; tid<nHebras; tid++){
+            printf("Hebra %d: %d lineas leidas correctamente\n", tid, lHebras[tid]);
+        }
     }
 
     // Liberar memoria asignada dinámicamente
-    liberar(registroDatos, datos);
+    liberar();
     pthread_mutex_destroy(&mutex);
 
     return 0;

@@ -4,7 +4,7 @@
 
 extern FILE *inputFile;
 extern int chunk, nHebras, cParticulas, cCeldas;
-extern int* particulasEmitidas, lHebras;
+extern int* lHebras;
 extern pthread_mutex_t mutex;
 extern celdas* celdasEnergizadas;
 /*
@@ -45,16 +45,18 @@ Entrada: Arreglo de celdas de resultados, celda con mayor energía, cantidad de 
 Salida: Ninguna, los resultados se escriben en un archivo
 Lógica: Abre el archivo de salida, escribe la celda con la mayor energía y luego las demás celdas con sus respectivas energías.
 */
-void archivo_salida(celdas* resultadosCeldas, celdas mostEnergy, int cantidadCeldas, char* filename){
+void archivo_salida(char* filename){
     FILE* file = fopen(filename, "w");
     if (file == NULL){
         fprintf(stderr, "No se pudo abrir el archivo.");
         fclose(file);
     }
+    mostEnergy= mayor_energia();
+    ();
     fprintf(file, "%d %.6lf\n", mostEnergy.celda, mostEnergy.energia);
-    for (int i = 0; i < cantidadCeldas; i++)
+    for (int i = 0; i < cCeldas; i++)
     {
-        fprintf(file, "%d %.6lf\n", resultadosCeldas[i].celda, resultadosCeldas[i].energia);
+        fprintf(file, "%d %.6lf\n", celdasEnergizadas[i]->celda, celdasEnergizadas[i]->energia);
     }
     fclose(file);
 };
@@ -101,13 +103,13 @@ Entrada: Arreglo de celdas registradas, cantidad de celdas
 Salida: Celda con la mayor energía
 Lógica: Recorre el arreglo de celdas registradas y encuentra la celda con la mayor energía.
 */
-celdas mayor_energia(celdas* celdasRegistradas, int cantidadCeldas){
+celdas mayor_energia(){
     celdas mayorEnergia;
     mayorEnergia.energia = 0;
-    for (int i = 0; i < cantidadCeldas; i++){
-        if (celdasRegistradas[i].energia > mayorEnergia.energia){
+    for (int i = 0; i < cCeldas; i++){
+        if (celdasEnergizadas[i]->energia > mayorEnergia.energia){
             mayorEnergia.celda = i;
-            mayorEnergia.energia = celdasRegistradas[i].energia;
+            mayorEnergia.energia = celdasEnergizadas[i]->energia;
         }
     }
     return mayorEnergia;
@@ -119,10 +121,10 @@ Entrada: Arreglo de celdas con energías, celda con mayor energía, N (número m
 Salida: Arreglo de valores normalizados
 Lógica: Normaliza los valores de energía en el rango [0, MAX_CHAR] en función de la celda con mayor energía.
 */
-int* normalizacion(celdas* resultadoCeldas, celdas mostEnergy, int N, int MAX_CHAR){
+int* normalizacion(int MAX_CHAR){
     int* normalizado = (int*) malloc(N * sizeof(int));
     for (int i = 0; i < N; i++){
-        normalizado[i] = round((resultadoCeldas[i].energia / mostEnergy.energia) * MAX_CHAR);
+        normalizado[i] = round((celdasEnergizadas[i]->energia / mayor_energia().energia) * MAX_CHAR);
     }
     return normalizado;
 }
@@ -133,13 +135,7 @@ Entrada: Arreglo de celdas de datos registrados y matriz de partículas
 Salida: Ninguna, libera la memoria
 Lógica: Libera la memoria asignada para las celdas de datos registrados y la matriz de partículas.
 */
-void liberar(celdas* datosRegistrados, int** particulas){
-    int cParticulas = particulas[0][0];
-    free(datosRegistrados);
-
-    for (int i = 1; i <= cParticulas; i++)
-    {
-        free(particulas[i]);
-    }
-    free(particulas);
+void liberar(){
+    free(celdasEnergizadas);
+    free(lHebras);
 }
