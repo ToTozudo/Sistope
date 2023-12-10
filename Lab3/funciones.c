@@ -17,7 +17,7 @@ Lógica: Se busca el archivo con el nombre proporcionado, se analiza el primer n
         número recién leído, se reserva memoria para almacenar la posición de la partícula y su energía.
 */
 void* particulas( void * arg){
-    int tid = *((int*)hebra);
+    int tid = *((int*)arg);
     while(1){
         pthread_mutex_lock(&mutex);
         if (feof(inputFile)) {  // Verificar si ya se llegó al final del archivo
@@ -32,7 +32,7 @@ void* particulas( void * arg){
                 break;
             }
             fscanf(inputFile, "%d %d", &particula, &energia);
-            lHebras[tid] += 1;
+            &lHebras[tid] = &lHebras + 1;
             energia_celdas(particula,energia);
         }
     }
