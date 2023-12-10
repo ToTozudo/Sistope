@@ -25,7 +25,7 @@ void* particulas(void* hebra){
             break;
         }
         int particula;
-        float energia;
+        int energia;
         for(int i = 0; i < chunk ; i++){
             if (feof(inputFile)) {  // Verificar si ya se llegó al final del archivo
                 pthread_mutex_unlock(&mutex);// Se sale de la sección crítica
@@ -57,7 +57,7 @@ void archivo_salida(char* filename){
     fprintf(file, "%d %.6lf\n", mostEnergy.celda, mostEnergy.energia);
     for (int i = 0; i < cCeldas; i++)
     {
-        fprintf(file, "%d %.6lf\n", celdasEnergizadas[i]->celda, celdasEnergizadas[i]->energia);
+        fprintf(file, "%d %.6lf\n", celdasEnergizadas[i].celda, celdasEnergizadas[i].energia);
     }
     fclose(file);
 };
@@ -85,9 +85,9 @@ void energia_celdas(int particula, float energia){
 
     for (int i = 0; i < cCeldas; i++)
     {
-        celdasEnergizadas[i]->celda = i;
-        if (celdasEnergizadas[i]->energia == NULL){
-            celdasEnergizadas[i]->energia = 0;
+        celdasEnergizadas[i].celda = i;
+        if (celdasEnergizadas[i].energia == NULL){
+            celdasEnergizadas[i].energia = 0;
         } 
         float energiaParcial = energia_j_i(i, particula, cantidadCeldas, energia);
             if (energiaParcial >= MIN_ENERGY){
@@ -108,9 +108,9 @@ celdas mayor_energia(){
     celdas mayorEnergia;
     mayorEnergia.energia = 0;
     for (int i = 0; i < cCeldas; i++){
-        if (celdasEnergizadas[i]->energia > mayorEnergia.energia){
+        if (celdasEnergizadas[i].energia > mayorEnergia.energia){
             mayorEnergia.celda = i;
-            mayorEnergia.energia = celdasEnergizadas[i]->energia;
+            mayorEnergia.energia = celdasEnergizadas[i].energia;
         }
     }
     return mayorEnergia;
@@ -123,9 +123,9 @@ Salida: Arreglo de valores normalizados
 Lógica: Normaliza los valores de energía en el rango [0, MAX_CHAR] en función de la celda con mayor energía.
 */
 int* normalizacion(int MAX_CHAR){
-    int* normalizado = (int*) malloc(N * sizeof(int));
-    for (int i = 0; i < N; i++){
-        normalizado[i] = round((celdasEnergizadas[i]->energia / mayor_energia().energia) * MAX_CHAR);
+    int* normalizado = (int*) malloc(cCeldas * sizeof(int));
+    for (int i = 0; i < cCeldas; i++){
+        normalizado[i] = round((celdasEnergizadas[i].energia / mayor_energia().energia) * MAX_CHAR);
     }
     return normalizado;
 }
