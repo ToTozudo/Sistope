@@ -16,29 +16,34 @@ Lógica: Se busca el archivo con el nombre proporcionado, se analiza el primer n
         que representa la cantidad de partículas a leer. Luego, se inicializa una matriz con el 
         número recién leído, se reserva memoria para almacenar la posición de la partícula y su energía.
 */
-void* particulas( void * arg){
+void* particulas(void* arg) {
     int tid = *((int*)arg);
-    while(1){
+    
+    while (1) {
         pthread_mutex_lock(&mutex);
-        if (feof(inputFile)) {  // Verificar si ya se llegó al final del archivo
-            pthread_mutex_unlock(&mutex);// Se sale de la sección crítica
+        if (feof(inputFile)) {
+            pthread_mutex_unlock(&mutex);
             break;
         }
+        pthread_mutex_unlock(&mutex);
+
         int particula;
         int energia;
-        for(int i = 0; i < chunk ; i++){
-            if (feof(inputFile)) {  // Verificar si ya se llegó al final del archivo
-                pthread_mutex_unlock(&mutex);// Se sale de la sección crítica
+        for (int i = 0; i < chunk; i++) {
+            pthread_mutex_lock(&mutex);
+            if (feof(inputFile)) {
+                pthread_mutex_unlock(&mutex);
                 break;
             }
             fscanf(inputFile, "%d %d", &particula, &energia);
             lHebras[tid] += 1;
-            energia_celdas(particula,energia);
+            pthread_mutex_unlock(&mutex);
+            energia_celdas(particula, energia);
         }
     }
-    
+
     return NULL;
-};
+}
 
 /*
 Función para escribir resultados en un archivo de salida
