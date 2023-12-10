@@ -84,7 +84,7 @@ int main(int argc, char *argv[])
 		pthread_join(arrayHebras[tid], NULL);
 	}
 	//Se cierra el archivo de entrada, ya que no se volverá a ocupar
-	fclose(archivoEntrada);
+	fclose(inputFile);
 
     // Escribir los resultados en un archivo de salida
     archivo_salida(outputFilename);
@@ -92,10 +92,10 @@ int main(int argc, char *argv[])
     // Si la bandera D está habilitada, generar y mostrar una representación gráfica
     if (D_flag)
     {
-        int* grafico = normalizacion(registroDatos, celdaEnergizada, N, MAX_CHAR);
-        for (int i = 0; i < N; i++)
+        int* grafico = normalizacion(MAX_CHAR);
+        for (int i = 0; i < cCeldas; i++)
         {
-            printf("%d\t%.4lf  |", i, registroDatos[i].energia);
+            printf("%d\t%.4lf  |", i, celdasEnergizadas[i].energia);
             for (int j = 0; j < grafico[i]; j++)
             {
                 printf("o");
