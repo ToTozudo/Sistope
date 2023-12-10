@@ -52,10 +52,8 @@ int main(int argc, char *argv[])
     }
 
     // Verificación de los parámetros de entrada
-    if (cCeldas <= 0 || H <=0 || inputFilename == NULL || outputFilename == NULL || c <= 0) {
-        fprintf(stderr, "Faltan opciones requeridas o el numero de celdas, de hebras o el tamaño del chunk, es invalido. \n
-        Asegurese de que ha ingresado los parametros correctamente, o que los valores ingresados para la cantidad de celdas,\n
-        numero de hebras, y/o el tamaño del chunk sea positivo y mayor a 0.\n");
+    if (cCeldas <= 0 || nHebras <=0 || inputFilename == NULL || outputFilename == NULL || chunk <= 0) {
+        fprintf(stderr, "Faltan opciones requeridas o el numero de celdas, de hebras o el tamaño del chunk, es invalido.\nAsegurese de que ha ingresado los parametros correctamente, o que los valores ingresados para la cantidad de celdas,\nnumero de hebras, y/o el tamaño del chunk sea positivo y mayor a 0.\n");
         return 1;
     }
 
