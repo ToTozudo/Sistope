@@ -30,7 +30,7 @@ Declaración de la función "energia_celdas" que calcula la energía de cada cel
 Entrada: Matriz de datos con partículas y sus energías, cantidad de celdas.
 Salida: Arreglo de celdas con energías calculadas.
 */
-celdas* energia_celdas(int** datos, int cantidadCeldas);
+void energia_celdas(int particula, float energia);
 
 /*
 Declaración de la función "mayor_energia" que encuentra la celda con la mayor energía en un arreglo de celdas registradas.

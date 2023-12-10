@@ -26,6 +26,10 @@ void* particulas(void* args){
         int particula;
         float energia;
         for(int i = 0; i < chunk ; i++){
+            if (feof(archivoEntrada)) {  // Verificar si ya se llegó al final del archivo
+                pthread_mutex_unlock(&mutex);// Se sale de la sección crítica
+                break;
+            }
             fscanf(file, "%d %d", &particula, &energia);
             energia_celdas(particula,energia);
         }
@@ -72,22 +76,22 @@ Entrada: Matriz de datos con partículas y sus energías, cantidad de celdas
 Salida: Arreglo de celdas con energías calculadas
 Lógica: Calcula la energía de todas las celdas según la posición de las partículas y las energías de las partículas.
 */
-float energia_celdas(int particula, float energia){
+void energia_celdas(int particula, float energia){
     float MIN_ENERGY = pow(10, -3) / cCeldas;
 
     for (int i = 0; i < cCeldas; i++)
     {
-        celdasEnergizadas[i].celda = i;
-        celdasEnergizadas[i].energia = 0;
-        for (int j = 1; j <= cantidadParticulas; j++)
-        {
-            float energiaParcial = energia_j_i(i, datos[j][0], cantidadCeldas, datos[j][1]);
+        celdasEnergizadas[i]->celda = i;
+        if (celdasEnergizadas[i]->energia == NULL){
+            celdasEnergizadas[i]->energia = 0;
+        } 
+        float energiaParcial = energia_j_i(i, particula, cantidadCeldas, energia);
             if (energiaParcial >= MIN_ENERGY){
                 celdasResultantes[i].energia += energiaParcial;
             }
-        }
+        
     }
-    return celdasResultantes;
+    
 }
 
 /*
