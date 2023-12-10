@@ -8,7 +8,7 @@
 //Declaración variables globales
 int MAX_CHAR = 35;  // Valor máximo de caracteres en el gráfico
 int chunk, nHebras, cParticulas, cCeldas;
-int* particulas;
+int* particulas, lHebras;
 FILE *inputFile;
 pthread_mutex_t mutex;
 celdas* celdasEnergizadas;
@@ -78,7 +78,9 @@ int main(int argc, char *argv[])
 	pthread_mutex_init(&mutex, NULL); // Se inicializa el mutex
 
     for (int tid = 0; tid < nHebras; tid++){ // Se crean las hebras
-		pthread_create(&arrayHebras[tid], NULL, particulas, NULL);
+		pthread_create(&arrayHebras[tid], NULL, particulas, (void *)tid);
+        lHebras = (int*) malloc(nHebras * sizeof(int));
+        lHebras[tid] = 0; //cuantas lineas a leido
 	}
 
 	for(int tid = 0; tid < nHebras; tid++){  // Se espera que cada hebra termine de ejecutarse
